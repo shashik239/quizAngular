@@ -1,0 +1,67 @@
+<div class="container">
+  <h3 style="text-align:center">
+   Welcome to Quiz App!
+  </h3>
+  <div class="card" [hidden]="isQuestionCardShow">
+    <div class="card-body">
+      <div class="row justify-content-md-center">
+        <div class="col-sm-12 col-lg-3">
+          <button class="btn btn-block btn-outline-primary cursor-restriction" style="margin-top: 24px;" (click)="startQuiz()">
+            Start The Quiz </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" [hidden]="!isQuestionCardShow">
+    <div class="card-body">
+      <form #questionTest="ngForm" novalidate>
+          <div>{{currentQuestion.question}}</div>
+          <div class="form-group row">
+            <div class="col-md-9 col-form-label" style="margin-left:40px">
+              <div >
+                <input class="form-check-input" type="radio" name="{{currentQuestion.id}}" value=0 [(ngModel)]="currentQuestion.selected">
+                <label class="form-check-label">{{currentQuestion.options[0]}} </label>
+              </div>
+              <div>
+                <input class="form-check-input" type="radio" name="{{currentQuestion.id}}" value=1 [(ngModel)]="currentQuestion.selected">
+                <label class="form-check-label">{{currentQuestion.options[1]}}</label>
+              </div>
+              <div >
+                <input class="form-check-input" type="radio" name="{{currentQuestion.id}}" value=2 [(ngModel)]="currentQuestion.selected">
+                <label class="form-check-label">{{currentQuestion.options[2]}}</label>
+              </div>
+              <div>
+                <input class="form-check-input" type="radio" name="{{currentQuestion.id}}" value=3 [(ngModel)]="currentQuestion.selected">
+                <label class="form-check-label">{{currentQuestion.options[3]}}</label>
+              </div>
+            </div>
+          </div>
+          <hr>
+      </form>
+      <div class="row">
+        <div class="col-8" style="justify-content: center;display: flex;">
+          <button class="btn btn-success" *ngIf="(currentIndex+1) != questions.length" type="button" (click)="next()" style="margin-right: 20px">Next</button>
+          <button type="button" class="btn btn-default" (click)="HomePage()" style="margin-right: 30px;">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="submitTest()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #submitModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center" style="color: #196f77;">
+        <h4>Total Questions: {{questions.length}} </h4>
+        <h4>
+          Total Answered: {{totalAnswered}}
+        </h4>
+        <h4>
+          Right Answer : {{rightAnswer}}
+        </h4>
+        <button type="button" class="btn btn-default" (click)="submitModal.hide()" style="margin-left: 17px;">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
